@@ -19,7 +19,6 @@ type SplitTextProps = {
 		opacity?: number;
 	};
 	className?: string;
-	retrigger?: boolean;
 	notNow?: boolean;
 };
 
@@ -30,7 +29,6 @@ const SplitText = forwardRef<any, SplitTextProps>(
 			splitType = "chars",
 			animation = { duration: 1, stagger: 0.1, y: 50, opacity: 0 },
 			className,
-			retrigger = false,
 			notNow = false,
 		},
 		ref
@@ -147,5 +145,5 @@ const SplitText = forwardRef<any, SplitTextProps>(
 		);
 	}
 );
-
+SplitText.displayName = "SplitText";
 export default SplitText;
