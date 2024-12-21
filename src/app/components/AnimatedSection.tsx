@@ -11,10 +11,11 @@ const AnimatedSection = ({
 	onExpand = () => {},
 }: {
 	heading: string;
+
 	description: string;
 	imgSrc: string;
-	isExpanded: HTMLImageElement | null;
-	onExpand: (isExpanded: HTMLImageElement | null) => void;
+	isExpanded: HTMLDivElement | null;
+	onExpand: (isExpanded: HTMLDivElement | null) => void;
 }) => {
 	const overlay = useRef<HTMLImageElement | null>(null);
 	const container = useRef<HTMLDivElement | null>(null);
@@ -114,7 +115,7 @@ const AnimatedSection = ({
 			const wrapperEle = wrapper.current;
 			if (wrapperEle) {
 				wrapperEle.classList.add("active-section");
-				onExpand(wrapperEle);
+				onExpand(wrapperEle ?? null);
 			}
 		}
 	};

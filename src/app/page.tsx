@@ -5,9 +5,9 @@ import { useState } from "react";
 
 export default function Home() {
 	const [expandedSection, setExpandedSection] =
-		useState<HTMLImageElement | null>(null);
+		useState<HTMLDivElement | null>(null);
 
-	const handleExpand = (element: HTMLImageElement | null) => {
+	const handleExpand = (element: HTMLDivElement | null) => {
 		setExpandedSection((prev) => (prev === element ? null : element));
 	};
 
