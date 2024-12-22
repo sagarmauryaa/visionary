@@ -112,7 +112,7 @@ const AnimatedSection = ({
 			if (animteText) {
 				animteText.classList.add("!text-6xl");
 			}
-			desc.current?.handleTrigger();
+			desc.current?.trigger();
 			circluarImg.current?.handleTrigger();
 
 			const wrapperEle = wrapper.current;
@@ -141,7 +141,7 @@ const AnimatedSection = ({
 			if (animteText) {
 				animteText.classList.remove("!text-6xl");
 			}
-			desc.current?.handleReverse();
+			desc.current?.reverse();
 			circluarImg.current?.handleReverse();
 			onExpand(null);
 		}

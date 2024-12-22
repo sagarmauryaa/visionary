@@ -11,14 +11,14 @@ import { gsap } from "gsap";
 
 type SplitTextProps = {
 	text: string;
-	splitType?: "words" | "chars" | "lines";
+	splitType?: "lines" | "words" | "chars";
+	className?: string;
 	animation?: {
-		duration?: number;
-		stagger?: number;
+		duration: number;
+		stagger: number;
 		y?: number;
 		opacity?: number;
 	};
-	className?: string;
 	notNow?: boolean;
 };
 
@@ -27,56 +27,60 @@ const SplitText = forwardRef<any, SplitTextProps>(
 		{
 			text,
 			splitType = "chars",
-			animation = { duration: 1, stagger: 0.1, y: 50, opacity: 0 },
+			animation: animationProp = {
+				duration: 1,
+				stagger: 0.1,
+				y: 50,
+				opacity: 0,
+			},
 			className,
 			notNow = false,
 		},
 		ref
 	) => {
 		const textRef = useRef<HTMLDivElement>(null);
+		const tl = useRef<GSAPTimeline | null>(null);
+		// Memoize animation defaults
+		const animation = useMemo(
+			() => ({
+				duration: animationProp.duration ?? 1,
+				stagger: animationProp.stagger ?? 0.1,
+				y: animationProp.y ?? 50,
+				opacity: animationProp.opacity ?? 0,
+			}),
+			[animationProp]
+		);
 
 		// Memoized split elements to avoid re-splitting on every render
-		const splitElements = useMemo(() => {
-			let elements: React.ReactNode[] = [];
-
+		const getSplitText = () => {
 			switch (splitType) {
 				case "words":
-					elements = text.split(" ").map((word, i) => (
-						<React.Fragment key={i}>
-							{word.split(" ").map((w, j) => (
-								<span key={j} className="split-word">
-									{w}&nbsp;
-								</span>
-							))}
-							<br />
-						</React.Fragment>
+					return text.split(" ").map((word, i) => (
+						<span key={i} className="split-word">
+							{word}&nbsp;
+						</span>
 					));
-					break;
 				case "chars":
-					elements = text.split("").map((char, i) => (
+					return text.split("").map((char, i) => (
 						<span key={i} className="split-char">
 							{char}
 						</span>
 					));
-					break;
 				case "lines":
-					elements = text.split("<br>").map((line, i) => (
+					return text.split("<br>").map((line, i) => (
 						<span key={i} className="split-line">
 							{line.trim()}
 							<br />
 						</span>
 					));
-					break;
 				default:
-					elements = text.split("").map((char, i) => (
+					return text.split("").map((char, i) => (
 						<span key={i} className="split-char">
 							{char}
 						</span>
 					));
 			}
-
-			return elements;
-		}, [text, splitType]);
+		};
 
 		// Trigger GSAP animation
 		const handleTrigger = useCallback(() => {
@@ -105,7 +109,6 @@ const SplitText = forwardRef<any, SplitTextProps>(
 			}
 		}, [splitType, animation]);
 
-		// GSAP reverse animation
 		const handleReverse = useCallback(() => {
 			if (!textRef.current) return;
 
@@ -123,24 +126,22 @@ const SplitText = forwardRef<any, SplitTextProps>(
 			});
 		}, [splitType, animation]);
 
-		// Expose imperative handle
 		useImperativeHandle(ref, () => ({
-			handleTrigger,
-			handleReverse,
+			trigger: handleTrigger,
+			reverse: handleReverse,
 		}));
 
-		// Handle animations on mount
 		useEffect(() => {
 			if (!notNow) {
 				handleTrigger();
 			} else {
 				handleReverse();
 			}
-		}, [splitElements, animation, notNow, handleTrigger, handleReverse]);
+		}, [handleTrigger, handleReverse, notNow]);
 
 		return (
 			<div ref={textRef} className={`split-text ${className || ""}`}>
-				{splitElements}
+				{getSplitText()}
 			</div>
 		);
 	}

@@ -1,7 +1,9 @@
 "use client";
 import AnimatedSection from "@/app/components/AnimatedSection";
+import SplitText from "@/app/components/SplitText";
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import AnimateButton from "./components/AnimateButton";
 
 export default function Home() {
 	const [expandedSection, setExpandedSection] =
@@ -13,25 +15,37 @@ export default function Home() {
 
 	return (
 		<main
-			className={`relative overflow-hidden ${
+			className={`relative overflow-hidden   ${
 				expandedSection ? " -dark" : ""
 			}`}
 		>
 			<section className="relative grid grid-cols-4 h-dvh">
 				<header className="absolute top-0 left-0 w-full p-8 z-10 grid grid-cols-4 gap-4">
 					<Link href={"/"}>Visionary</Link>
-					<p className="header-copy">
-						Where Form
-						<br /> and Function Unite
-					</p>
+					<SplitText
+						className="header-copy"
+						text={"Where Form <br> and Function Unite"}
+						splitType="lines"
+						animation={{
+							duration: 1,
+							stagger: 0.1,
+							y: 70,
+							opacity: 0,
+						}}
+					/>
 					<div className="col-span-2 ps-8 grid gap-8">
-						<h1 className="text-5xl uppercase font-light header-content">
-							ELEVATING COMFORT
-							<br /> WITH EVERY CURVE
-						</h1>
-						<button className="w-fit border border-slate-950 rounded-full uppercase text-sm px-6 py-1.5 duration-200 hover:bg-slate-950 hover:text-white">
-							EXPLORE EXPERIENCE
-						</button>
+						<SplitText
+							className="text-5xl uppercase font-light header-content"
+							text={"ELEVATING COMFORT<br>WITH EVERY CURVE"}
+							splitType="lines"
+							animation={{
+								duration: 1,
+								stagger: 0.5,
+								y: 70,
+								opacity: 0,
+							}}
+						/>
+						<AnimateButton />
 					</div>
 				</header>
 				<AnimatedSection
