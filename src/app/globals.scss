@@ -30,7 +30,7 @@ section .animate-section:not(:first-child) {
 
 	&.active-section {
 		z-index: 1;
-		img {
+		.bg-img {
 			filter: brightness(67%);
 			-webkit-filter: brightness(67%);
 			-moz-filter: brightness(67%);
@@ -55,7 +55,10 @@ main.-dark {
 	display: inline-block;
 }
 
-.split-line,
+.split-line {
+	display: block;
+	white-space: pre;
+}
 .split-char,
 .split-word {
 	display: inline-block;

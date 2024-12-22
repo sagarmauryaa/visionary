@@ -35,7 +35,7 @@ export default function Home() {
 					</div>
 				</header>
 				<AnimatedSection
-					heading={"Our Approach"}
+					heading={"Our<br> Approach"}
 					description={
 						"United by love for creativity and innovation,<br> our team is the driving force<br> behind the brand's success and<br> the creation of extraordinary seating solutions."
 					}
@@ -44,7 +44,7 @@ export default function Home() {
 					isExpanded={expandedSection}
 				/>
 				<AnimatedSection
-					heading={"Our Technology"}
+					heading={"Our<br> Technology"}
 					description={
 						"United by love for creativity and innovation,<br> our team is the driving force<br> behind the brand's success and<br> the creation of extraordinary seating solutions."
 					}
@@ -53,7 +53,7 @@ export default function Home() {
 					isExpanded={expandedSection}
 				/>
 				<AnimatedSection
-					heading={"Our Story"}
+					heading={"Our<br> Story"}
 					description={
 						"United by love for creativity and innovation,<br> our team is the driving force<br> behind the brand's success and<br> the creation of extraordinary seating solutions."
 					}
@@ -62,7 +62,7 @@ export default function Home() {
 					isExpanded={expandedSection}
 				/>
 				<AnimatedSection
-					heading={"Our Design Team"}
+					heading={"Our<br> Design Team"}
 					description={
 						"United by love for creativity and innovation,<br> our team is the driving force<br> behind the brand's success and<br> the creation of extraordinary seating solutions."
 					}

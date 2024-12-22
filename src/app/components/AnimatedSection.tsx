@@ -2,6 +2,7 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import SplitText from "../components/SplitText";
+import CircularImg from "./CircularImg";
 
 const AnimatedSection = ({
 	heading = "",
@@ -21,6 +22,7 @@ const AnimatedSection = ({
 	const container = useRef<HTMLDivElement | null>(null);
 	const wrapper = useRef<HTMLDivElement | null>(null);
 	const desc = useRef<any>(null);
+	const circluarImg = useRef<any>(null);
 
 	useEffect(() => {
 		const element = container.current;
@@ -104,13 +106,14 @@ const AnimatedSection = ({
 				duration: 0.8,
 				ease: "power4.out",
 				position: "absolute",
+				onComplete: () => {},
 			});
-
 			const animteText = wrapper.current?.querySelector(".animte-text");
 			if (animteText) {
-				animteText.classList.add("!text-5xl");
+				animteText.classList.add("!text-6xl");
 			}
 			desc.current?.handleTrigger();
+			circluarImg.current?.handleTrigger();
 
 			const wrapperEle = wrapper.current;
 			if (wrapperEle) {
@@ -132,13 +135,14 @@ const AnimatedSection = ({
 				position: "relative", // Reset to original positioning
 				duration: 0.8,
 				ease: "power4.out",
+				onComplete: () => {},
 			});
 			const animteText = wrapper.current?.querySelector(".animte-text");
 			if (animteText) {
-				animteText.classList.remove("!text-5xl");
+				animteText.classList.remove("!text-6xl");
 			}
 			desc.current?.handleReverse();
-
+			circluarImg.current?.handleReverse();
 			onExpand(null);
 		}
 	};
@@ -174,13 +178,13 @@ const AnimatedSection = ({
 						clipPath: "polygon(0 99%, 100% 99%, 100% 100%, 0 100%)",
 						transform: "translateY(200px)",
 					}}
-					className="absolute top-0 bottom-0 right-0 left-0 w-full h-full object-cover"
+					className="absolute top-0 bottom-0 right-0 left-0 w-full h-full object-cover bg-img"
 				/>
-				<div className="w-full grid grid-cols-2 ">
+				<div className="w-full grid grid-cols-4 h-full">
 					<SplitText
 						text={heading}
-						splitType="words"
-						className="relative z-10 uppercase text-3xl leading-tight animte-text max-w-[300px]  mt-auto"
+						splitType="lines"
+						className="relative col-span-2 z-10 uppercase text-4xl leading-tight animte-text max-w-[300px]  mt-auto"
 						animation={{
 							duration: 1,
 							stagger: 0.05,
@@ -194,13 +198,16 @@ const AnimatedSection = ({
 						splitType="lines"
 						className="relative mt-auto pb-4 ps-8 z-10 text-base font-light leading-tight animte-description max-w-[300px]"
 						animation={{
-							duration: 1,
-							stagger: 0.05,
+							duration: 0.6,
+							stagger: 0.08,
 							y: 50,
 							opacity: 0,
 						}}
 						notNow={true}
 					/>
+					<div className="relative flex items-center justify-center">
+						<CircularImg ref={circluarImg} imgSrc={imgSrc} />
+					</div>
 				</div>
 			</div>
 		</div>
