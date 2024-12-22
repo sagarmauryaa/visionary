@@ -75,5 +75,5 @@ const CircularImg = forwardRef<any, CircularImgProps>(
 		);
 	}
 );
-
+CircularImg.displayName = "CircularImg";
 export default CircularImg;
